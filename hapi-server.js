@@ -2,10 +2,10 @@
 const knex = require("knex")({
   client: "pg",
   connection: {
-    host: "localhost", // PostgreSQL server
-    user: "tom", // Your user name
-    password: "", // Your password
-    database: "cos-243-ui-spa", // Your database name
+    host: "faraday.cse.taylor.edu", // PostgreSQL server
+    user: "brickson_cain", // Your user name
+    password: "timogaha", // Your password
+    database: "brickson_cain", // Your database name
   },
 });
 
@@ -87,7 +87,41 @@ async function init() {
         }
       },
     },
-
+    {
+      method: "PATCH",
+      path: "/accounts",
+      config: {
+        description: "Change an account",
+        validate: {
+          payload: Joi.object({
+            email: Joi.string().required(),
+            password: Joi.string().required(),
+          }),
+        },
+      },
+      handler: async (request, h) => {
+        const existingAccount = await Account.query()
+            .where("email", request.payload.email)
+            .first();
+        if(existingAccount){
+          const changedAccount = await Account.query().patch({
+            password: request.payload.password,
+          })
+              .where("email", request.payload.email)
+              .first();
+        }
+        else{
+          return{
+            ok: false,
+            msge: `Account with email '${request.payload.email}' doesn't exist`,
+          };
+        }
+        return {
+          ok: true,
+          msge: `Changed account with email '${request.payload.email}'`,
+        };
+      },
+    },
     {
       method: "GET",
       path: "/accounts",
