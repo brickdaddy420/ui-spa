@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="824ea169-b560-41e6-9392-b42f9daeb754" name="Default Changelist" comment="" />
+    <list default="true" id="ef0054c5-1137-4505-a2b6-91014d4cb5e2" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -18,6 +19,10 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1lCLr9R7mlUHZC7TRGuRjkfITd0" />
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1lALt96byQYwPz3n3LGzxPA7Fvs" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -44,10 +49,23 @@
       <option name="presentableId" value="Default" />
       <updated>1607096322412</updated>
       <workItem from="1607096323469" duration="12715000" />
+      <changelist id="ef0054c5-1137-4505-a2b6-91014d4cb5e2" name="Default Changelist" comment="" />
+      <created>1607035160324</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1607035160324</updated>
+      <workItem from="1607035161894" duration="2207000" />
+      <workItem from="1607094384404" duration="1453000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="1032" y="178" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1607035610332">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="1032" y="178" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1607035610332" />
   </component>
 </project>

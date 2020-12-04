@@ -6,6 +6,10 @@ const knex = require("knex")({
     user: "brickson_cain", // Your user name
     password: "timogaha", // Your password
     database: "brickson_cain", // Your database name
+    host: 'faraday.cse.taylor.edu', // PostgreSQL server
+    user: 'brickson_cain', // Your user name
+    password: 'timogaha', // Your password
+    database: 'brickson_cain', // Your database name
   },
 });
 
