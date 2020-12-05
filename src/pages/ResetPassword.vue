@@ -100,7 +100,7 @@ export default {
       rules: {
         required: [(val) => val.length > 0 || "Required"],
         email: [
-          (val) => val === this.$store.getters.email() || "wrong e-mail",
+          (val) => val === this.$store.getters.email || "wrong e-mail",
         ],
         password: [
           (val) => /[A-Z]/.test(val) || "Need upper case letter",
@@ -120,6 +120,7 @@ export default {
       // Post the content of the form to the Hapi server.
       this.$axios
           .patch("/accounts", {
+            id: this.$store.getters.id,
             email: this.changedMember.email,
             password: this.changedMember.newPassword,
           })
@@ -128,7 +129,7 @@ export default {
             // appropriate dialog.
             if (result.data.ok) {
               this.showDialog("Success", result.data.msge);
-              this.accountCreated = true;
+              this.accountChanged = true;
             } else {
               this.showDialog("Sorry", result.data.msge);
             }
@@ -147,7 +148,7 @@ export default {
     // and navigate to the home page.
     hideDialog: function () {
       this.dialogVisible = false;
-      if (this.accountCreated) {
+      if (this.accountChanged) {
         // Only navigate away from the sign-up page if we were successful.
         this.$router.push({ name: "home-page" });
       }

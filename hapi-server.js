@@ -6,10 +6,6 @@ const knex = require("knex")({
     user: "brickson_cain", // Your user name
     password: "timogaha", // Your password
     database: "brickson_cain", // Your database name
-    host: 'faraday.cse.taylor.edu', // PostgreSQL server
-    user: 'brickson_cain', // Your user name
-    password: 'timogaha', // Your password
-    database: 'brickson_cain', // Your database name
   },
 });
 
@@ -98,31 +94,32 @@ async function init() {
         description: "Change an account",
         validate: {
           payload: Joi.object({
-            email: Joi.string().required(),
-            password: Joi.string().required(),
+            id: Joi.number().required(),
+            first_name: Joi.string(),
+            last_name: Joi.string(),
+            email: Joi.string(),
+            password: Joi.string(),
           }),
         },
       },
       handler: async (request, h) => {
         const existingAccount = await Account.query()
-            .where("email", request.payload.email)
+            .where("id", request.payload.id)
             .first();
         if(existingAccount){
-          const changedAccount = await Account.query().patch({
-            password: request.payload.password,
-          })
-              .where("email", request.payload.email)
+          const changedAccount = await Account.query().patch(request.payload)
+              .where("id", request.payload.id)
               .first();
         }
         else{
           return{
             ok: false,
-            msge: `Account with email '${request.payload.email}' doesn't exist`,
+            msge: `Account with id '${request.payload.id}' doesn't exist`,
           };
         }
         return {
           ok: true,
-          msge: `Changed account with email '${request.payload.email}'`,
+          msge: `Account with ID '${request.payload.id}' has been changed`,
         };
       },
     },

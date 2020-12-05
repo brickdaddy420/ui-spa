@@ -28,7 +28,10 @@ export default new Vuex.Store({
       return state.currentAccount !== null;
     },
     email(state) {
-      return state.currentAccount.details.email;
+      return state.currentAccount.email;
+    },
+    id(state) {
+      return state.currentAccount.id;
     }
   },
 
