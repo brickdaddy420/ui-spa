@@ -97,7 +97,7 @@ async function init() {
             id: Joi.number().required(),
             first_name: Joi.string(),
             last_name: Joi.string(),
-            email: Joi.string(),
+            email: Joi.string().email(),
             password: Joi.string(),
           }),
         },
@@ -187,6 +187,7 @@ async function init() {
               firstName: account.first_name,
               lastName: account.last_name,
               email: account.email,
+              password: account.password,
             },
           };
         } else {

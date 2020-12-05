@@ -11,11 +11,11 @@
             v-bind:rules="rules.email"
             error-count="10"
             type="email"
-            label="Your email address"
+            label="Your email account"
         ></v-text-field>
         <v-text-field
             v-model="changedMember.password"
-            v-bind:rules="rules.password"
+            v-bind:rules="rules.oldPass"
             error-count="10"
             type="password"
             label="Your current password"
@@ -30,7 +30,7 @@
         </v-text-field>
         <v-text-field
             v-model="changedMember.passwordConfirm"
-            v-bind:rules="rules.password"
+            v-bind:rules="rules.confirmPass"
             error-count="10"
             type="password"
             label="Confirm new password"
@@ -100,13 +100,19 @@ export default {
       rules: {
         required: [(val) => val.length > 0 || "Required"],
         email: [
-          (val) => val === this.$store.getters.email || "wrong e-mail",
+          (val) => val == this.$store.getters.email || "Wrong e-mail",
         ],
         password: [
           (val) => /[A-Z]/.test(val) || "Need upper case letter",
           (val) => /[a-z]/.test(val) || "Need lower case letter",
           (val) => /\d/.test(val) || "Need digit",
           (val) => val.length >= 8 || "Minimum 8 characters",
+        ],
+        oldPass: [
+          //(val) => val == this.$store.getters.password || "Wrong password",
+        ],
+        confirmPass: [
+          //(val) => val == this.newPassword || "Doesn't match with new password"
         ],
       },
     };

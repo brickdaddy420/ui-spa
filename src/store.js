@@ -32,6 +32,9 @@ export default new Vuex.Store({
     },
     id(state) {
       return state.currentAccount.id;
+    },
+    password(state) {
+      return state.currentAccount.password;
     }
   },
 
