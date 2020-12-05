@@ -89,37 +89,46 @@ async function init() {
     },
     {
       method: "PATCH",
-      path: "/accounts",
+      path: "/reset",
       config: {
-        description: "Change an account",
+        description: "Change an account's password",
         validate: {
           payload: Joi.object({
-            id: Joi.number().required(),
-            first_name: Joi.string(),
-            last_name: Joi.string(),
-            email: Joi.string().email(),
-            password: Joi.string(),
+            email: Joi.string().email().required(),
+            password: Joi.string().required(),
+            newPassword: Joi.string().required().min(8),
+            confirmPassword: Joi.string().required().min(8),
           }),
         },
       },
       handler: async (request, h) => {
-        const existingAccount = await Account.query()
-            .where("id", request.payload.id)
-            .first();
-        if(existingAccount){
-          const changedAccount = await Account.query().patch(request.payload)
-              .where("id", request.payload.id)
-              .first();
-        }
-        else{
-          return{
+        if (request.payload.newPassword != request.payload.confirmPassword){
+          return {
             ok: false,
-            msge: `Account with id '${request.payload.id}' doesn't exist`,
+            msge: "Your new password and was different from your new password confirmation",
+          };
+        }
+        const account = await Account.query()
+            .where("email", request.payload.email)
+            .first();
+        if (
+            account &&
+            (await account.verifyPassword(request.payload.password))
+        ){
+          const changedAccount = await Account.query().patch({
+            password: request.payload.newPassword,
+          })
+              .where("email", request.payload.email);
+        }
+        else {
+          return {
+            ok: false,
+            msge: "Invalid email or password",
           };
         }
         return {
           ok: true,
-          msge: `Account with ID '${request.payload.id}' has been changed`,
+          msge: `Account with email '${request.payload.email}' has been changed`,
         };
       },
     },

@@ -112,7 +112,7 @@ export default {
           //(val) => val == this.$store.getters.password || "Wrong password",
         ],
         confirmPass: [
-          //(val) => val == this.newPassword || "Doesn't match with new password"
+          (val) => val == this.changedMember.newPassword || "Doesn't match with new password"
         ],
       },
     };
@@ -125,10 +125,11 @@ export default {
 
       // Post the content of the form to the Hapi server.
       this.$axios
-          .patch("/accounts", {
-            id: this.$store.getters.id,
+          .patch("/reset", {
             email: this.changedMember.email,
-            password: this.changedMember.newPassword,
+            password: this.changedMember.password,
+            newPassword: this.changedMember.newPassword,
+            confirmPassword: this.changedMember.passwordConfirm,
           })
           .then((result) => {
             // Based on whether things worked or not, show the
